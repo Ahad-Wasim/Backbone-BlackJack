@@ -1,11 +1,14 @@
 class window.Hand extends Backbone.Collection
   model: Card
 
+  # HAND IS RECIEVING INDIVIDUAL MODELS FROM THE DECK COLLECTION 
+
+  # A hand is a collection of all the cards for a specific player
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    # Were removing a card Model from the deck Collection
-    # And were adding that to the currentPlayers Card
+    # Were removing a Card Model from the Deck Collection
+    # And were adding that to the currentPlayers Hand Deck 
     @add(@deck.pop())
     @last()
 
@@ -37,3 +40,17 @@ class window.Hand extends Backbone.Collection
 
     if score[0] <= 21
       return "Ace Saved your life : #{score[0]}"
+
+  stand: false
+
+  triggerStand : ->
+    this.stand = !this.stand
+
+  flipAllCards: ->
+    # We are flipping the first card. By doing this it will trigger an event a change event in HandsView CAUSING IT TO RE-RENDER
+    @.models[0].flip()
+
+
+
+
+
