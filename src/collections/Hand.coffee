@@ -33,7 +33,8 @@ class window.Hand extends Backbone.Collection
   checkIfNotBusted: (score) ->
 
     if score[1] > 21 and score[0] > 21
-      return "You have lost #{score[1]}"
+      "Dealer Wins #{score[1]}"
+      alert("Dealer Wins")
 
     if score[1] <= 21
       return score[1]

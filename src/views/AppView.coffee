@@ -21,6 +21,9 @@ class window.AppView extends Backbone.View
         if @model.get('playerHand').stand == false 
           @.model.get('playerHand').triggerStand();
           @.model.get('dealerHand').flipAllCards()
+        else if @model.get('dealerHand').stand == false
+          @.model.get('dealerHand').triggerStand();
+          alert('We now want to compare scores')
 
   initialize: ->
     @render()

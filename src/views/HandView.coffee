@@ -16,7 +16,8 @@ class window.HandView extends Backbone.View
 
     @$el.children().detach()
     @$el.html @template @collection
-    # Were looping through all the cards in the hand
+
+    # Were looping through all the cards in the Hand Deck
     @$el.append @collection.map (card) ->
       new CardView(model: card).$el
     @$('.score').text( @collection.checkIfNotBusted( @collection.scores() ) )
