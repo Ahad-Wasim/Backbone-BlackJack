@@ -1,4 +1,7 @@
+# THIS IS A MODEL
+
 class window.Card extends Backbone.Model
+ 
   initialize: (params) ->
     @set
       revealed: true
