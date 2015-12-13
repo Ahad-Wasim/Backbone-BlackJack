@@ -12,18 +12,26 @@ class window.AppView extends Backbone.View
 
   events:
     'click .hit-button': -> 
+
         if @model.get('playerHand').stand == false
           @model.get('playerHand').hit()
+          @model.checkLimit @model.get('playerHand').scores()
         else 
           @model.get('dealerHand').hit()
 
     'click .stand-button': -> 
         if @model.get('playerHand').stand == false 
-          @.model.get('playerHand').triggerStand();
-          @.model.get('dealerHand').flipAllCards()
-        else if @model.get('dealerHand').stand == false
-          @.model.get('dealerHand').triggerStand();
-          alert('We now want to compare scores')
+          @model.get('playerHand').triggerStand()
+          @model.get('dealerHand').flipAllCards()
+
+          dealerHand = @model.get('dealerHand')
+
+          @model.checkPast17(dealerHand)
+
+        # else if @model.get('dealerHand').stand == false
+        #  @model.get('dealerHand').triggerStand();
+        #  winner = @compareScore()
+          
 
   initialize: ->
     @render()
@@ -33,7 +41,15 @@ class window.AppView extends Backbone.View
     @$el.html @template()
 
     # We are passing in the App Models Hand Deck
-    # This means the playerHand and the DealHand COLLECTION are both getting passed in
+    # This means the playerHand and the DealHand COLLECTION are both getting passed in to HandView
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
+
+  compareScore: ->
+    playerHand = @model.get('playerHand').scores()
+    dealerHand = @model.get('dealerHand').scores()
+    @model.checkWin playerHand, dealerHand 
+
+    console.log("playerHand", playerHand )
+    console.log("dealerHand", dealerHand )
 

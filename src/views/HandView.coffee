@@ -4,7 +4,7 @@ class window.HandView extends Backbone.View
 
   className: 'hand'
 
-  template: _.template '<h2><% if(isDealer){ %>Dealer<% }else{ %>You<% } %> (<span class="score"></span>)</h2>'
+  template: _.template '<h2><% if(isDealer){ %>Dealer<% }else{ %>Player<% } %> (<span class="score"></span>)</h2>'
 
   initialize: ->
     # Listening for the add and remove events happening on the collection of player Cards
@@ -20,6 +20,6 @@ class window.HandView extends Backbone.View
     # Were looping through all the cards in the Hand Deck
     @$el.append @collection.map (card) ->
       new CardView(model: card).$el
-    @$('.score').text( @collection.checkIfNotBusted( @collection.scores() ) )
+    @$('.score').text( @collection.checkIfNotBusted( @collection ) )
     
 

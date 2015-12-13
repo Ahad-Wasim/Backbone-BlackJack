@@ -30,17 +30,22 @@ class window.Hand extends Backbone.Collection
 
     [@minScore(), @minScore() + 10 * @hasAce()]
 
-  checkIfNotBusted: (score) ->
+  checkIfNotBusted: (handDeck) ->
 
+    score = handDeck.scores();
+
+    if(handDeck.isDealer)
+      return score[1]
+    
+    # If Hand Deck is not a dealer
     if score[1] > 21 and score[0] > 21
-      "Dealer Wins #{score[1]}"
-      alert("Dealer Wins")
+      return score[0]
 
     if score[1] <= 21
       return score[1]
 
     if score[0] <= 21
-      return "Ace Saved your life : #{score[0]}"
+      return score[0]
 
   stand: false
 
